@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Emil's Fun Intro</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body class="bg-cover bg-center text-white min-h-screen" id="background">
+
+  <!-- Button in top-right -->
+  <div class="absolute top-4 right-4 z-50">
+    <button id="reveal-btn"
+      class="bg-transparent text-white px-4 py-2">
+      Don't tap or click here
+    </button>
+  </div>
+
+  <!-- Backdrop and Info Card -->
+  <div id="card-backdrop" class="hidden fixed inset-0 bg-black bg-opacity-50 z-40">
+    <div id="about-card"
+         class="absolute top-4 right-4 bg-gray-900 bg-opacity-80 backdrop-blur-lg text-white p-6 rounded-lg shadow-xl max-w-sm w-full text-left animate-fade z-50 space-y-4">
+      <h2 class="text-2xl font-bold mb-2">Hey there! 👋</h2>
+      <p class="text-sm space-y-4" id="funny-description"></p>
+      <a href="mailto:youremail@example.com" class="text-blue-500 hover:underline text-sm space-y-4">
+        Contact me
+      </a>
+    </div>
+  </div>
+
+  <script src="constants.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
+
