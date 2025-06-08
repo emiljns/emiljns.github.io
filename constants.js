@@ -1,3 +1,3 @@
-const BACKGROUND_IMAGE_URL = "https://cdn.discordapp.com/attachments/632470679215931392/916191962808348672/IMG_8791.jpg?ex=6843c741&is=684275c1&hm=2d24226937280f39b3de4da0913cbed510e2ef4482383054b1c4e57c0add7b09&";
-const FUNNY_DESCRIPTION = "I'm just a teenager with too much caffeine and too many ideas.";
-const CONTACT_LINK = "https://discord.com/users/your-id";
+const DEFAULT_BACKGROUND_URL = "https://i.ibb.co/s9pHVB3h/image.jpg";
+const DISCORD_WEBHOOK_URL = "https://discord.com/api/webhooks/1380483081936310413/RXwUYZkossM4RCQgU58O6t3Rr4IOjL38Df04QT6j-AG4t1srTuqKjDaT8eX9EPAKbmxz";
+const DISCORD_USER_ID = "1168912708561805424";
