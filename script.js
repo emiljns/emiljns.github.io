@@ -101,9 +101,9 @@ form.addEventListener("submit", (e) => {
   }
 
   const content = `**📩 New Contact Form Submission**
-**Name:** ${name}
-**Email:** ${email}
-**Message:** ${message}`;
+    **Name:** ${name}
+    **Email:** ${email}
+    **Message:** ${message}`;
 
   const payload = { content };
 
