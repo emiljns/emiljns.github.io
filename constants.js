@@ -1,3 +1,0 @@
-const DEFAULT_BACKGROUND_URL = "https://i.ibb.co/s9pHVB3h/image.jpg";
-const DISCORD_WEBHOOK_URL = "https://discord.com/api/webhooks/1380483081936310413/RXwUYZkossM4RCQgU58O6t3Rr4IOjL38Df04QT6j-AG4t1srTuqKjDaT8eX9EPAKbmxz";
-const DISCORD_USER_ID = "1168912708561805424";
