@@ -1,3 +1,3 @@
 const DEFAULT_BACKGROUND_URL = "https://i.ibb.co/s9pHVB3h/image.jpg";
-const DISCORD_WEBHOOK_URL = "https://discord.com/api/webhooks/1380483081936310413/RXwUYZkossM4RCQgU58O6t3Rr4IOjL38Df04QT6j-AG4t1srTuqKjDaT8eX9EPAKbmxz";
+const DISCORD_WEBHOOK_URL = "https://discord.com/api/webhooks/1385891471231680552/X4AtrX69b8Z792_R7mMG2aIl2crris0TjlLlvqIwzEUBFSArJylsA2Aeuj-78LOQZFDB";
 const DISCORD_USER_ID = "1168912708561805424";
