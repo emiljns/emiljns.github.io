@@ -18,7 +18,7 @@ https://emiljns.github.io
 - WebSockets (Lanyard API)
 - Discord Webhooks
 
-## ✨ Features ’
+## ✨ Features
 - Click to reveal info card
 - Contact form with validation
 - Real time Spotify presence
