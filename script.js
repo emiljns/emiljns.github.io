@@ -12,6 +12,39 @@ const formView = document.getElementById("form-view");
 const bgPeely = document.getElementById("bg-peely");
 const bgArt = document.getElementById("bg-art");
 const spotifyStatus = document.getElementById("spotify-status");
+const spotifyText = document.getElementById("spotify-text");
+
+// the status line: a text too long for its box glides to its end and back, pausing at each
+// end, at reading speed. still with Reduce Motion (the "…" instead)
+const GLIDE_PAUSE_MS = 2000;
+const GLIDE_SPEED = 45; // px a second
+const calm = window.matchMedia("(prefers-reduced-motion: reduce)");
+let glide = null;
+
+function setStatus(text) {
+  spotifyText.textContent = text;
+  fitStatus();
+}
+function fitStatus() {
+  glide?.cancel();
+  glide = null;
+  spotifyText.classList.remove("scrolling");
+  const box = spotifyStatus.clientWidth - parseFloat(getComputedStyle(spotifyStatus).paddingLeft) * 2;
+  const overflow = spotifyText.getBoundingClientRect().width - box; // the text's full width (an inline span has no scrollWidth)
+  if (overflow <= 4 || calm.matches) return;
+  spotifyText.classList.add("scrolling");
+  const move = (overflow / GLIDE_SPEED) * 1000;
+  const total = 2 * GLIDE_PAUSE_MS + 2 * move;
+  const at = (ms) => ms / total;
+  glide = spotifyText.animate([
+    { transform: "translateX(0)", offset: 0 },
+    { transform: "translateX(0)", offset: at(GLIDE_PAUSE_MS), easing: "ease-in-out" },
+    { transform: `translateX(${-overflow}px)`, offset: at(GLIDE_PAUSE_MS + move) },
+    { transform: `translateX(${-overflow}px)`, offset: at(2 * GLIDE_PAUSE_MS + move), easing: "ease-in-out" },
+    { transform: "translateX(0)", offset: 1 },
+  ], { duration: total, iterations: Infinity });
+}
+window.addEventListener("resize", fitStatus);
 
 // Show card on main button click
 btn.addEventListener("click", () => {
@@ -96,11 +129,11 @@ ws.onmessage = (event) => {
       // Update spotify status text
       const song = spotify.details || "Unknown song";
       const artist = spotify.state || "Unknown artist";
-      spotifyStatus.textContent = `🎵 Currently listening to "${song}" by ${artist}`;
+      setStatus(`🎵 Currently listening to "${song}" by ${artist}`);
     } else {
       // No Spotify activity
       setBackground(null);
-      spotifyStatus.textContent = "Currently not listening to anything 🎧";
+      setStatus("Currently not listening to anything 🎧");
     }
   }
 };
