@@ -22,6 +22,9 @@ const calm = window.matchMedia("(prefers-reduced-motion: reduce)");
 let glide = null;
 
 function setStatus(text) {
+  // Lanyard sends an update whenever anything in the presence changes (often every few
+  // seconds): the same line again mustn't restart the glide, or it never gets past its pause
+  if (spotifyText.textContent === text) return;
   spotifyText.textContent = text;
   fitStatus();
 }
