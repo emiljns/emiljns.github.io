@@ -9,10 +9,8 @@ const backBtn = document.getElementById("back-btn");
 const infoView = document.getElementById("info-view");
 const formView = document.getElementById("form-view");
 
-const form = document.getElementById("contact-form");
-const statusMessage = document.getElementById("form-status");
-
-const background = document.getElementById("background");
+const bgPeely = document.getElementById("bg-peely");
+const bgArt = document.getElementById("bg-art");
 const spotifyStatus = document.getElementById("spotify-status");
 
 // Show card on main button click
@@ -30,20 +28,16 @@ backdrop.addEventListener("click", (e) => {
   }
 });
 
-// Toggle to contact form view
+// Toggle to the contact view (messages moved to cookiewarrior.io)
 contactBtn.addEventListener("click", () => {
   infoView.classList.add("hidden");
   formView.classList.remove("hidden");
-  hideStatus();
-  form.reset();
 });
 
 // Back button toggles back to intro view
 backBtn.addEventListener("click", () => {
   formView.classList.add("hidden");
   infoView.classList.remove("hidden");
-  hideStatus();
-  form.reset();
 });
 
 // Close card helper function
@@ -53,96 +47,25 @@ function closeCard() {
     backdrop.classList.add("hidden");
     btn.classList.remove("hidden");
 
-    // Reset views and form
+    // Reset to the intro view
     infoView.classList.remove("hidden");
     formView.classList.add("hidden");
-    hideStatus();
-    form.reset();
   }, 400);
-}
-
-// Hide status message
-function hideStatus() {
-  statusMessage.classList.add("hidden");
-  statusMessage.textContent = "";
-  statusMessage.classList.remove("text-red-400", "text-green-400");
-}
-
-// Show success message
-function showSuccess(msg) {
-  statusMessage.textContent = msg;
-  statusMessage.classList.remove("hidden", "text-red-400");
-  statusMessage.classList.add("text-green-400");
-}
-
-// Show error message
-function showError(msg) {
-  statusMessage.textContent = msg;
-  statusMessage.classList.remove("hidden", "text-green-400");
-  statusMessage.classList.add("text-red-400");
-}
-
-// Handle form submission
-form.addEventListener("submit", (e) => {
-  e.preventDefault();
-
-  const name = document.getElementById("name").value.trim() || "Anonymous";
-  const email = document.getElementById("email").value.trim();
-  const message = document.getElementById("message").value.trim();
-
-  if (!message) {
-    showError("Message cannot be empty.");
-    return;
-  }
-
-  if (!email || !validateEmail(email)) {
-    showError("Please enter a valid email.");
-    return;
-  }
-
-  const content = `**📩 New Contact Form Submission**
-    **Name:** ${name}
-    **Email:** ${email}
-    **Message:** ${message}`;
-
-  const payload = { content };
-
-  fetch(DISCORD_WEBHOOK_URL, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(payload)
-  })
-  .then(res => {
-    if (res.ok) {
-      form.reset();
-      showSuccess("Message sent! ✅");
-    } else {
-      throw new Error("Failed to send");
-    }
-  })
-  .catch(() => {
-    showError("Failed to send. ❌");
-  });
-});
-
-function validateEmail(email) {
-  // Simple regex email validation
-  return /\S+@\S+\.\S+/.test(email);
 }
 
 // --- Lanyard Spotify Background Integration ---
 
+// Peely by default; the album art (blurred, style.css) while a song plays. the layers crossfade
+bgPeely.style.backgroundImage = `url(${DEFAULT_BACKGROUND_URL})`;
+
 function setBackground(url) {
-  background.style.backgroundImage = url
-    ? `linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url(${url})`
-    : `url(${DEFAULT_BACKGROUND_URL})`;
-  background.style.backgroundSize = "cover";
-  background.style.backgroundPosition = "center";
-  background.style.backgroundRepeat = "no-repeat";
+  if (url) bgArt.style.backgroundImage = `url(${url})`;
+  bgArt.classList.toggle("shown", Boolean(url));
+  bgPeely.classList.toggle("shown", !url);
 }
 
 // Initialize with default background
-setBackground(DEFAULT_BACKGROUND_URL);
+setBackground(null);
 
 // Setup Lanyard websocket for Spotify presence updates
 const ws = new WebSocket("wss://api.lanyard.rest/socket");
@@ -176,7 +99,7 @@ ws.onmessage = (event) => {
       spotifyStatus.textContent = `🎵 Currently listening to "${song}" by ${artist}`;
     } else {
       // No Spotify activity
-      setBackground(DEFAULT_BACKGROUND_URL);
+      setBackground(null);
       spotifyStatus.textContent = "Currently not listening to anything 🎧";
     }
   }

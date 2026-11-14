@@ -14,9 +14,38 @@
   animation-fill-mode: forwards;
 }
 
-/* Background styling controlled by JS */
-#background {
-  transition: background 1s ease-in-out;
+/* black behind everything, before the picture arrives too (no white flash in Safari) */
+html {
+  background: #000;
+}
+
+/* the background: two layers, one shown at a time (script.js), crossfading */
+.bg-layer {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  opacity: 0;
+  transition: opacity 1s ease-in-out;
+}
+.bg-layer.shown {
+  opacity: 1;
+}
+
+/* Peely: on a tall screen, centring cut his face off the left edge; this keeps it in view */
+@media (orientation: portrait) {
+  #bg-peely {
+    background-position: 36% center;
+  }
+}
+
+/* album art: Spotify covers are 640px, soft when stretched full screen, so blurred on purpose
+   and darker (the card and the status stay readable). a little larger, so the blur has no edges */
+#bg-art {
+  inset: -40px;
+  filter: blur(18px) brightness(0.65);
 }
 
 /* Spotify status box styling */
