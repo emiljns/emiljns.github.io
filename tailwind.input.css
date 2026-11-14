@@ -1,0 +1,6 @@
+/* the Tailwind source for tailwind.css (the page reads the built file, nothing runs in the
+   browser). after adding Tailwind classes to index.html or script.js, rebuild it:
+   npx tailwindcss@3.4.17 -i tailwind.input.css -o tailwind.css --content index.html,script.js --minify */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;

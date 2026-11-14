@@ -13,7 +13,7 @@ https://emiljns.github.io
 
 ## 🛠 Tech Stack
 - HTML
-- Tailwind CSS (CDN)
+- Tailwind CSS (built ahead of time into tailwind.css; tailwind.input.css has the command)
 - Vanilla JavaScript
 - WebSockets (Lanyard API)
 
